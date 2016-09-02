@@ -5,10 +5,10 @@ class TempSensNode(TempAbstractNode):
     """
     Node object of temp sensor
     """
-    # DEFAULT_LOW_RES = (10, 13)
-    # DEFAULT_HIGH_RES = (27, 32)
-    DEFAULT_LOW_RES = (0, 3)
-    DEFAULT_HIGH_RES = (7, 12)
+    DEFAULT_LOW_RES = (10, 13)
+    DEFAULT_HIGH_RES = (27, 32)
+    # DEFAULT_LOW_RES = (0, 3)
+    # DEFAULT_HIGH_RES = (7, 12)
 
     def __init__(self, temp_thres_low=None, temp_thres_high=None, *args, **kwargs):
         self.temperature = -273
