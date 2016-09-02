@@ -1,14 +1,25 @@
-import time
 import sys
 import os
 from TempSensCoordinator import TempSensCoordinator
+from TsLog import ts_log
+from ReportInterface import TempSensWebServer, TempSensRequestHandler
 
 
-def run_server():
-    coordinator = TempSensCoordinator()
+def print_usage():
+    print "Usage: TempSensServerMain.py sensor_port alarm_port web_port deamon"
+
+
+def run_server(sensor_port, alarm_port, web_port):
+    coordinator = TempSensCoordinator(sensor_port=sensor_port, alarm_port=alarm_port)
     coordinator.start_server()
-    while True:
-        time.sleep(10)
+    host_server = TempSensWebServer(coordinator, ('', web_port), TempSensRequestHandler)
+
+    ts_log("Starting TempSensServer...")
+    try:
+        host_server.serve_forever()
+    except:
+        ts_log("HostnameServ deamon unexceptly stopped.")
+    sys.exit(3)
 
 
 def deamon():
@@ -32,9 +43,24 @@ def deamon():
     os.dup2(so.fileno(), sys.stdout.fileno())
     os.dup2(serr.fileno(), sys.stderr.fileno())
 
-if len(sys.argv) == 2:
-    if sys.argv[1].upper() in ["YES", "TRUE"]:
+
+if len(sys.argv) != 5:
+    print_usage()
+    exit(1)
+
+try:
+    _sensor_port = int(sys.argv[1])
+    _alarm_port = int(sys.argv[2])
+    _web_port = int(sys.argv[3])
+
+    if sys.argv[4].upper() in ["YES", "TRUE"]:
         deamon()
-
-
-run_server()
+    elif sys.argv[4].upper() not in ["NO", "FALSE"]:
+        print_usage()
+        exit(1)
+    else:
+        pass
+except:
+    print_usage()
+else:
+    run_server(_sensor_port, _alarm_port, _web_port)

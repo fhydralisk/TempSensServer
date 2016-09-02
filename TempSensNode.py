@@ -53,4 +53,11 @@ class TempSensNode(TempAbstractNode):
     def shall_alarm(self):
         return self.alarm
 
+    def get_node_info(self):
+        info = TempAbstractNode.get_node_info(self)
+        info["lastTemperature"] = self.get_temperature()
+        info["lowThreshold"] = list(self.thres_low)
+        info["highThreshold"] = list(self.thres_high)
+        return info
+
 

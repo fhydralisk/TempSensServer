@@ -48,3 +48,7 @@ class TempSensServer(TempAbstractServer):
             return self.nodeDict[devid].shall_alarm()
         except KeyError:
             raise
+
+    @staticmethod
+    def server_type():
+        return "Sensor Server"

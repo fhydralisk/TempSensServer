@@ -1,4 +1,3 @@
-import time
 import threading
 
 from TsLog import ts_log
@@ -56,12 +55,13 @@ class NodeStateChecker(AbstractChecker):
         self.checkList = []
         AbstractChecker.__init__(self, *args, **kwargs)
 
-    def register_list(self, list_of_node):
-        self.checkList.append(list_of_node)
+    def register(self, dict_of_node):
+        if dict_of_node not in self.checkList:
+            self.checkList.append(dict_of_node)
 
-    def unregister_list(self, list_of_node):
-        if list_of_node in self.checkList:
-            del self.checkList[list_of_node]
+    def unregister(self, dict_of_node):
+        if dict_of_node in self.checkList:
+            del self.checkList[dict_of_node]
 
     def check(self):
         for node_dict in self.checkList:
@@ -72,4 +72,4 @@ class NodeStateChecker(AbstractChecker):
 
     def on_terminate(self):
         ts_log("Checker thread is dead")
-        AbstractChecker.on_terminate()
+        AbstractChecker.on_terminate(self)

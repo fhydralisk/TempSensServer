@@ -51,3 +51,7 @@ class TempAlarmServer(TempAbstractServer):
         reply = struct.pack("!2BHBB%ds" % len(payload), 0x0F, 0xF0, version, cmd, len(payload), payload)
         reply += struct.pack("B", MiscFunc.calc_crc(reply[2:]))
         return reply
+
+    @staticmethod
+    def server_type():
+        return "Alarm Server"

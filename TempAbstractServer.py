@@ -138,3 +138,12 @@ class TempAbstractServer(AbstractServer):
             "devid": devid,
         }
 
+    def get_nodes_info(self):
+        info_dict = {str(n): v.get_node_info() for n, v in self.nodeDict.items()}
+        return info_dict
+
+    @staticmethod
+    def server_type():
+        return "Abstract Server"
+
+

@@ -1,4 +1,5 @@
 import time
+import MiscFunc
 
 
 class TempAbstractNode(object):
@@ -35,4 +36,12 @@ class TempAbstractNode(object):
     def update(self, address, *args, **kwargs):
         self.lastAddress = address
         self.lastAction = time.time()
+
+    def get_node_info(self):
+        return {
+            "version": self.version,
+            "deviceId": self.deviceId,
+            "lastSeen": MiscFunc.format_timestamp(self.lastAction),
+            "lastAddress": self.lastAddress[0],
+        }
 

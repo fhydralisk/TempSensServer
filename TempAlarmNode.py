@@ -23,3 +23,8 @@ class TempAlarmNode(TempAbstractNode):
 
     def set_target_id(self, target_id):
         self.targetId = target_id
+
+    def get_node_info(self):
+        info = TempAbstractNode.get_node_info(self)
+        info["target_id"] = self.targetId
+        return info
