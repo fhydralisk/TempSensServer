@@ -48,19 +48,24 @@ if len(sys.argv) != 5:
     print_usage()
     exit(1)
 
+_sensor_port = 8124
+_alarm_port = 8125
+_web_port = 8126
+
 try:
     _sensor_port = int(sys.argv[1])
     _alarm_port = int(sys.argv[2])
     _web_port = int(sys.argv[3])
-
-    if sys.argv[4].upper() not in ["NO", "FALSE"]:
-        print_usage()
-        exit(1)
-    elif sys.argv[4].upper() in ["YES", "TRUE"]:
-        deamon()
-    else:
-        pass
 except:
     print_usage()
+    exit(1)
+
+if sys.argv[4].upper() not in ["NO", "FALSE"]:
+    print_usage()
+    exit(1)
+elif sys.argv[4].upper() in ["YES", "TRUE"]:
+    deamon()
 else:
-    run_server(_sensor_port, _alarm_port, _web_port)
+    pass
+
+run_server(_sensor_port, _alarm_port, _web_port)
