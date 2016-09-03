@@ -15,7 +15,7 @@ def get_short_from_buf(buf):
 
 
 def format_timestamp(timestamp):
-    l_time = time.localtime(timestamp + 8 * 60 * 60)
+    l_time = time.gmtime(timestamp + 8 * 60 * 60)
     return time.strftime("%Y-%m-%d %H:%M:%S", l_time)
 
 
