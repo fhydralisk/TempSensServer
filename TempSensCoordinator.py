@@ -31,10 +31,10 @@ class TempSensCoordinator(object):
         try:
             return self.sensServer.shall_alarm(devid)
         except KeyError:
-            pass
+            return None
         except:
             ts_log("Unexpected error happen in shall_alarm", debug_trace=True)
-            pass
+            return None
 
     def get_nodes_info(self):
         return {

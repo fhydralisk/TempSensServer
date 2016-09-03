@@ -39,7 +39,10 @@ class TempAlarmServer(TempAbstractServer):
         return self.send_shall_alarm(info["targetid"])
 
     def send_shall_alarm(self, devid):
-        if self.coordinator.shall_alarm(devid):
+        shall_alarm = self.coordinator.shall_alarm(devid)
+        if shall_alarm is None:
+            return None
+        elif shall_alarm:
             payload = self.PAYLOAD_ALARM
         else:
             payload = self.PAYLOAD_NOALARM
