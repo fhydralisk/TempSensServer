@@ -66,6 +66,4 @@ if sys.argv[4].upper() not in ["NO", "FALSE"]:
 elif sys.argv[4].upper() in ["YES", "TRUE"]:
     deamon()
 else:
-    pass
-
-run_server(_sensor_port, _alarm_port, _web_port)
+    run_server(_sensor_port, _alarm_port, _web_port)
