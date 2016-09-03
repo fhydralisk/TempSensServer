@@ -53,11 +53,11 @@ try:
     _alarm_port = int(sys.argv[2])
     _web_port = int(sys.argv[3])
 
-    if sys.argv[4].upper() in ["YES", "TRUE"]:
-        deamon()
-    elif sys.argv[4].upper() not in ["NO", "FALSE"]:
+    if sys.argv[4].upper() not in ["NO", "FALSE"]:
         print_usage()
         exit(1)
+    elif sys.argv[4].upper() in ["YES", "TRUE"]:
+        deamon()
     else:
         pass
 except:
