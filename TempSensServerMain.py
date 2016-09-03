@@ -57,13 +57,14 @@ try:
     _alarm_port = int(sys.argv[2])
     _web_port = int(sys.argv[3])
 except:
+    ts_log("startup failed ")
     print_usage()
     exit(1)
 
-if sys.argv[4].upper() not in ["NO", "FALSE"]:
+if sys.argv[4].upper() not in ["YES","TRUE", "NO", "FALSE"]:
     print_usage()
     exit(1)
 elif sys.argv[4].upper() in ["YES", "TRUE"]:
     deamon()
-else:
-    run_server(_sensor_port, _alarm_port, _web_port)
+
+run_server(_sensor_port, _alarm_port, _web_port)
