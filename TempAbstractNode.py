@@ -24,7 +24,7 @@ class TempAbstractNode(object):
         return self.autoRemove
 
     @staticmethod
-    def get_node_type(self):
+    def get_node_type():
         return "Abstract Node"
 
     def get_nid(self):

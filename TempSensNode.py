@@ -25,7 +25,7 @@ class TempSensNode(TempAbstractNode):
         TempAbstractNode.__init__(self, *args, **kwargs)
 
     @staticmethod
-    def get_node_type(self):
+    def get_node_type():
         return "Temp Sensor Node"
 
     def update(self, temperature, *args, **kwargs):
