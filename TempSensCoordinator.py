@@ -19,8 +19,8 @@ class TempSensCoordinator(object):
                 self.sensServer.run_deamon()
             if not self.alarmServer.is_running():
                 self.alarmServer.run_deamon()
-            self.checker.register(self.sensServer.nodeDict)
-            self.checker.register(self.alarmServer.nodeDict)
+            self.checker.register(self.sensServer.server_type(), self.sensServer.nodeDict)
+            self.checker.register(self.alarmServer.server_type(), self.alarmServer.nodeDict)
             self.checker.run_checker()
 
         except:

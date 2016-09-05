@@ -52,19 +52,18 @@ class NodeStateChecker(AbstractChecker):
     Node Checker
     """
     def __init__(self, *args, **kwargs):
-        self.checkList = []
+        self.checkList = {}
         AbstractChecker.__init__(self, *args, **kwargs)
 
-    def register(self, dict_of_node):
-        if dict_of_node not in self.checkList:
-            self.checkList.append(dict_of_node)
+    def register(self, server_type, dict_of_node):
+        self.checkList[server_type] = dict_of_node
 
     def unregister(self, dict_of_node):
         if dict_of_node in self.checkList:
             del self.checkList[dict_of_node]
 
     def check(self):
-        for node_dict in self.checkList:
+        for node_dict in self.checkList.values():
             for nid, node in node_dict.items():
                 if not node.is_alive() and node.remove_when_dead():
                     del node_dict[nid]
