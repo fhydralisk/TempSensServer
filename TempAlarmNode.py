@@ -11,7 +11,7 @@ class TempAlarmNode(TempAbstractNode):
         TempAbstractNode.__init__(self, *args, **kwargs)
 
     @staticmethod
-    def get_node_type(self):
+    def get_node_type():
         return "Temp Alarm Node"
 
     def update(self, target_id, *args, **kwargs):
