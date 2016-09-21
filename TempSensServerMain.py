@@ -18,7 +18,7 @@ def run_server(sensor_port, alarm_port, web_port):
     try:
         host_server.serve_forever()
     except:
-        ts_log("HostnameServ deamon unexceptly stopped.")
+        ts_log("TempSensServer deamon unexceptly stopped.")
     sys.exit(3)
 
 

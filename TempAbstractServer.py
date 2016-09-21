@@ -1,6 +1,6 @@
 import socket
 import threading
-import struct
+import time
 
 import MiscFunc
 from TsLog import ts_log
@@ -21,18 +21,28 @@ class AbstractServer(object):
         self.deamonRun = False
 
     def run_deamon(self):
-        try:
-            self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            self.socket.bind((self.host, self.port))
-            self.socket.settimeout(self.DEFAULT_SOCKET_TIMEOUT)
-        except socket.error:
-            ts_log("Cannot bind to %s:%d" % self.host, self.port)
-            raise
-        else:
-            self.deamonRun = True
-            self.serverThread = threading.Thread(target=self.deamon)
-            self.serverThread.setDaemon(True)
-            self.serverThread.start()
+        retry = 0
+        max_attempt = 5
+        while retry < max_attempt:
+            try:
+                self.socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                self.socket.bind((self.host, self.port))
+                self.socket.settimeout(self.DEFAULT_SOCKET_TIMEOUT)
+            except socket.error:
+                ts_log("Cannot bind to %s:%d" % (self.host, self.port))
+                if retry < max_attempt:
+                    retry += 1
+                    time.sleep(5)
+                    continue
+                else:
+                    ts_log("Cannot start server after %d retries" % max_attempt)
+                    raise
+            else:
+                self.deamonRun = True
+                self.serverThread = threading.Thread(target=self.deamon)
+                self.serverThread.setDaemon(True)
+                self.serverThread.start()
+                break
 
     def stop_deamon(self):
         if not self.deamonRun:
